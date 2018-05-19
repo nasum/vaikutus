@@ -4,6 +4,12 @@ ENV APP_ROOT /usr/src/app
 
 WORKDIR $APP_ROOT
 
+RUN apt-get update && \
+    apt-get install -y nodejs \
+    mysql-client \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN pip install --upgrade pip &&\
     pip install pipenv
 
