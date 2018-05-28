@@ -1,0 +1,15 @@
+{
+  "name": "vaikutus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "nasum",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.9.1",
+    "webpack-bundle-tracker": "^0.3.0"
+  },
+  "dependencies": {
+    "vue": "^2.5.16",
+    "webpack-cli": "^2.1.4"
+  }
+}
