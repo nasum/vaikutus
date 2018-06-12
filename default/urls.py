@@ -1,7 +1,8 @@
 from django.urls import path
 
-from . import views
+from . import views as default_views
 
+app_name = 'default'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', default_views.index, name='index'),
 ]
