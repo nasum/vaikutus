@@ -1,5 +1,4 @@
-{% load render_bundle from webpack_loader %}
-<div id="app">
+<div>
+  <h1>Vaikutus</h1>
+  <a class="lead" href="{% url 'login' %}">Log in</a>
 </div>
-<a class="lead" href="{% url 'login' %}">Log in</a>
-{% render_bundle 'main' %}
