@@ -1,0 +1,12 @@
+{% load render_bundle from webpack_loader %}
+{{ user }}
+{% if user.is_authenticated %}
+    <p class="display-4">Hello, {{ user.username }}</p>
+    <a class="lead" href="{% url 'logout' %}">Log out</a>
+{% else %}
+    <a class="lead" href="{% url 'login' %}">Log in</a>
+{% endif %}
+<div id="app">
+</div>
+
+{% render_bundle 'main' %}

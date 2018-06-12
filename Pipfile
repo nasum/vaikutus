@@ -7,8 +7,10 @@ name = "pypi"
 django = "*"
 pymysql = "*"
 django-webpack-loader = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
 python_version = "3.6"

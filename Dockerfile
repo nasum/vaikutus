@@ -18,7 +18,7 @@ RUN apt-get install -y nodejs \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip &&\
-    pip install pipenv
+    pip install pipenv ptvsd==3.0.0
 
 COPY Pipfile Pipfile.lock $APP_ROOT/
 
