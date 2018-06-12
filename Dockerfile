@@ -5,7 +5,7 @@ ENV APP_ROOT /usr/src/app
 WORKDIR $APP_ROOT
 
 RUN apt-get update && \
-    apt-get install -y curl apt-transport-https
+    apt-get install -y curl apt-transport-https gnupg2
 
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
