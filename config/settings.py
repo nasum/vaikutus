@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_URL = 'default:login'
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home:index'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH2_KEY')
