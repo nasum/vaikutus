@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "nasum",
   "license": "MIT",
+  "scripts": {
+    "dev": "webpack -w"
+  },
   "devDependencies": {
     "webpack": "^4.9.1",
     "webpack-bundle-tracker": "^0.3.0"
