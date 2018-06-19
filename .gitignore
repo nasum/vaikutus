@@ -63,4 +63,4 @@ target/
 
 node_modules/
 webpack-stats.json
-assets/bundles/
+assets/js/

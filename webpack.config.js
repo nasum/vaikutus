@@ -5,9 +5,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './assets/js/main.js',
+  entry: './js/main.js',
   output: {
-    path: path.join(__dirname, './assets/bundles/'),
+    publicPath: '/static/js/',
+    path: path.join(__dirname, './assets/js/'),
     filename: "[name]-[hash].js",
   },
   plugins: [
