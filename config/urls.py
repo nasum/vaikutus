@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views
 
+from article.urls import router as article_router
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('home/', include('home.urls'), name='home'),
+    path('api/', include(article_router.urls)),
     path('', include('default.urls')),
 ]

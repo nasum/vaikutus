@@ -1,1 +1,1 @@
-CREATE DATABASE vaikutus;
+CREATE DATABASE vaikutus CHARACTER SET utf8mb4;

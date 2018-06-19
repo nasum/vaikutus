@@ -8,6 +8,8 @@ django = "*"
 pymysql = "*"
 django-webpack-loader = "*"
 social-auth-app-django = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 pylint = "*"
