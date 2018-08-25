@@ -81,9 +81,12 @@ export default {
           }
         }
       ).then(() => {
-        axios.get('/api/articles').then((response) => {
-          const articles = response.data
-          this.$store.dispatch('home/setArticles', { articles: articles })
+        console.log(this.$route.query)
+        axios.get('/api/articles', { params: this.$route.query }).then((response) => {
+          this.$store.dispatch('home/setArticles', { articles: response.data.results })
+          this.$store.dispatch('home/setCount', { count: response.data.count })
+          this.$store.dispatch('home/setNext', { next: response.data.next })
+          this.$store.dispatch('home/setPrev', { prev: response.data.previous })
         }).then(() => {
           this.dialogVisible = false
         })

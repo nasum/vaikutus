@@ -9,7 +9,13 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="100">
+            :total="count"
+            :page-size="pageSize"
+            :current-page="currentPage"
+            @current-change="currentChange"
+            @prev-click="prevClick"
+            @next-click="nextClick"
+          >
           </el-pagination>
         </el-col>
       </el-row>
@@ -37,23 +43,56 @@ export default {
     Article
   },
   data() {
-    return {}
+    return {
+      pageSize: 10
+    }
   },
   computed: {
     articles() {
       return this.$store.state.home.articles
+    },
+    count() {
+      return this.$store.state.home.count
+    },
+    currentPage() {
+      const query = this.$route.query
+      return (query.offset + this.pageSize) / this.pageSize
+    }
+  },
+  watch: {
+    '$route' (to) {
+      this.fetchPage('/api/articles', to.query)
     }
   },
   methods: {
     articlesLength() {
       return this.$store.state.home.articles.length
+    },
+    currentChange(size) {
+      const query = {
+        limit: this.pageSize,
+        offset: this.pageSize * (size - 1)
+      }
+      this.$router.push({ query: query})
+    },
+    prevClick() {
+      this.$router.push({ query: Object.assign({}, this.$store.state.home.previous)})
+    },
+    nextClick() {
+      this.$router.push({ query: Object.assign({}, this.$store.state.home.next)})
+    },
+    fetchPage(url, query) {
+      axios.get(url, { params: query }).then((response) => {
+        this.$store.dispatch('home/setArticles', { articles: response.data.results })
+        this.$store.dispatch('home/setCount', { count: response.data.count })
+        this.$store.dispatch('home/setNext', { next: response.data.next })
+        this.$store.dispatch('home/setPrev', { prev: response.data.previous })
+      })
     }
   },
   created(){
-    axios.get('/api/articles').then((response) => {
-      this.$store.dispatch('home/setArticles', { articles: response.data })
-    })
-  }
+    this.fetchPage('/api/articles', this.$route.query)
+  },
 }
 </script>
 
