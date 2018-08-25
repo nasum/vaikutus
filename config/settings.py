@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,11 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+sys.path.insert(0, os.path.join(BASE_DIR, 'modules'))
 
 # Application definition
 
 INSTALLED_APPS = [
-    'default.apps.DefaultConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
     'social_django',
+    'default.apps.DefaultConfig',
     'article',
     'rest_framework',
 ]
@@ -138,7 +140,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'), 
+    os.path.join(BASE_DIR, 'assets'),
 )
 
 WEBPACK_LOADER = {
@@ -154,7 +156,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home:index'
+LOGIN_REDIRECT_URL = 'modules.home:index'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_OAUTH2_SECRET')
