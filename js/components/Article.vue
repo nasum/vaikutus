@@ -2,7 +2,7 @@
   <el-col :span="24">
     <el-card class="box-card">
       <article>
-        <h2>{{ article.title }}</h2>
+        <h1>{{ article.title }}</h1>
         <vue-markdown :source="article.body"/>
       </article>
       <div class="bottom">

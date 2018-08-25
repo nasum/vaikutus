@@ -18,4 +18,3 @@ class ArticleViewSet(viewsets.ModelViewSet):
             return Response({ 'message': 'ok' })
         else:
             return Response(serializer.errors)
-
