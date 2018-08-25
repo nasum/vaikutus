@@ -11,9 +11,22 @@
     </el-row>
   </el-header>
   <el-main>
-    <el-row v-for="article in articles" :key="article.id">
-      <Article :article="article"/>
-    </el-row>
+    <template v-if="articles.length > 0">
+      <el-row v-for="article in articles" :key="article.id">
+        <Article :article="article"/>
+      </el-row>
+    </template>
+    <template v-else>
+      <el-row>
+        <el-col :span="24">
+          <el-card class="box-card">
+            <article>
+              <h2>No Articles</h2>
+            </article>
+          </el-card>
+        </el-col>
+      </el-row>
+    </template>
     <el-dialog
       class="edit-dialog"
       title="Edit Article"
@@ -52,13 +65,11 @@
 
 <script>
 import Article from '@/components/Article'
-import VueMarkdown from 'vue-markdown'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
 export default {
   components: {
-    VueMarkdown,
     Article
   },
   data() {

@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <article>
         <h2>{{ article.title }}</h2>
-        {{ article.body }}
+        <vue-markdown :source="article.body"/>
       </article>
       <div class="bottom">
         <time class="time">{{ article.created_at }}</time>
