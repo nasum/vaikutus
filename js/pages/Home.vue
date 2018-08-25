@@ -1,44 +1,46 @@
 <template>
 <el-container>
-  <el-header>
-    <h1>Vaikutus</h1>
-  </el-header>
-  <el-main>
-    <el-button type="text" @click="dialogVisible = true">click to open the Dialog</el-button>
-    <el-row v-for="article in articles" :key="article.id">
-      <el-col :span="24">
-        <el-card class="box-card">
-          <article>
-            <h2>{{ article.title }}</h2>
-            {{ article.body }}
-          </article>
-          <div class="bottom">
-            <time class="time">{{ article.created_at }}</time>
-            <el-button type="text" class="button">{{ article.author.username }}</el-button>
-          </div>
-        </el-card>
+  <el-header :height="75">
+    <el-row>
+      <el-col :span="22">
+        <h1>Vaikutus</h1>
+      </el-col>
+      <el-col :span="2" style="padding: 20px 0;">
+        <el-button type="primary" @click="dialogVisible = true" round>Edit</el-button>
       </el-col>
     </el-row>
+  </el-header>
+  <el-main>
+    <el-row v-for="article in articles" :key="article.id">
+      <Article :article="article"/>
+    </el-row>
     <el-dialog
+      class="edit-dialog"
       title="Edit Article"
       :visible.sync="dialogVisible"
       width="80%"
       :before-close="handleClose">
-      <el-row>
-        <el-col :span="12">
-          <el-input placeholder="Please input" v-model="title"/>
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="Edit" name="edit">
           <el-input
-            type="textarea" 
-            class="article-editor" 
-            v-model="body"/>
-        </el-col>
-        <el-col :span="12">
+            placeholder="Please input"
+            v-model="title"
+            style="margin-bottom: 20px;"
+          />
+          <el-input
+            type="textarea"
+            class="article-editor"
+            v-model="body"
+            :autosize="{ minRows: 10, maxRows: 10}"
+          />
+        </el-tab-pane>
+        <el-tab-pane label="Preview" name="preview">
           <div>
             {{ title }}
           </div>
-          <vue-markdown :source="body" />
-        </el-col>
-      </el-row>
+          <vue-markdown :source="body"/>
+        </el-tab-pane>
+      </el-tabs>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">Cancel</el-button>
         <el-button type="primary" @click="save_article">save</el-button>
@@ -49,17 +51,20 @@
 </template>
 
 <script>
+import Article from '@/components/Article'
 import VueMarkdown from 'vue-markdown'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
 export default {
   components: {
-    VueMarkdown
+    VueMarkdown,
+    Article
   },
   data() {
     return {
       dialogVisible: false,
+      activeName: 'edit',
       title: '',
       body: '',
       articles: []
@@ -75,11 +80,11 @@ export default {
     },
     save_article() {
       const csrftoken = Cookie.get('csrftoken')
-      axios.post('/api/articles/', 
-        { 
-          title: this.title, 
-          body: this.body 
-        } , 
+      axios.post('/api/articles/',
+        {
+          title: this.title,
+          body: this.body
+        } ,
         {
           headers: {
             'X-CSRFToken': csrftoken
@@ -87,15 +92,17 @@ export default {
         }
       ).then(() => {
         axios.get('/api/articles').then((response) => {
+          console.log(response.data)
           this.articles = response.data
         }).then(() => {
           this.dialogVisible = false
         })
-      }) 
+      })
     }
   },
   created(){
     axios.get('/api/articles').then((response) => {
+      console.log(response.data)
       this.articles = response.data
     })
   }
@@ -107,28 +114,10 @@ export default {
   background-color: #B3C0D1;
   color: #333;
 }
-.el-row {
-  margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
+
+.edit-dialog {
+  .edit-dialog__row {
+    margin-bottom: 20px;
   }
-}
-.article-editor {
-  width: 100%;
-}
-
-.time {
-  font-size: 13px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
-.button {
-  padding: 0;
-  float: right;
 }
 </style>
