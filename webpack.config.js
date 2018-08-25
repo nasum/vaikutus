@@ -1,5 +1,4 @@
 const path = require("path")
-const webpack = require('webpack')
 const BundleTracker = require('webpack-bundle-tracker')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
@@ -69,6 +68,7 @@ module.exports = {
     extensions: ['.js', '.vue'],
     alias: {
       'vue': path.resolve('./node_modules/vue/dist/vue.js'),
+      '@': path.resolve('./js'),
     }
   },
 }
